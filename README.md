@@ -1,6 +1,5 @@
 <h1 align="center">Incremental Structural Adaptation for Camouflaged Object Detection</h1>
 
-## Authors
 <div align='center'>
     <strong>Qingzheng Wang</strong>,&thinsp;
     <strong>Jiazhi Xie</strong><sup> *</sup>,&thinsp;
