@@ -34,6 +34,7 @@ To use this repository, follow the steps below to set up the environment:
     pip install -r requirements.txt
 
 3. **Download the datasets:**
+   [Download datasets](https://drive.google.com/drive/folders/1ehBdZcQWRVshFxR2u7-E1Uv-fwhkdOiE?usp=drive_link)
    https://drive.google.com/drive/folders/1ehBdZcQWRVshFxR2u7-E1Uv-fwhkdOiE?usp=drive_link
     After setting up the environment, you can download the training and test datasets from the provided links. Once downloaded, please unzip the datasets into the data folder under the root directory of the project. The folder structure should look like this:
    ```bash
