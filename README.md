@@ -46,7 +46,13 @@ To use this repository, follow the steps below to set up the environment:
    │   └── COD10K_CAMO_CHAMELEON_TrainingDataset/
    ├── requirements.txt
    └── … (other project files)
-   
+4. **Download the weights:**
+   [Download weights](https://drive.google.com/drive/folders/1ehBdZcQWRVshFxR2u7-E1Uv-fwhkdOiE?usp=drive_link)
+   After downloading the datasets, you will need to download the pretrained weights for the model and the backbone. These weights are required to initialize the model for training and inference.
+
+   - **Model Weights:** The model weights should be placed in the `ckpt/COD` directory.
+   - **Backbone Weights:** The backbone weights should be placed in the `lib/weights/backbones` directory.
+
 ### Run
 ```shell
 # Train & Test & Evaluation
