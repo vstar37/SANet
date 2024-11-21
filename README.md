@@ -2,15 +2,14 @@
 
 ## Authors
 <div align='center'>
-    <strong>Qingzheng Wang</strong><sup> *</sup>,&thinsp;
+    <strong>Qingzheng Wang</strong>,&thinsp;
     <strong>Jiazhi Xie</strong><sup> *</sup>,&thinsp;
     <strong>Ning Li</strong>,&thinsp;
     <strong>Xingqin Wang</strong>,&thinsp;
     <strong>Wenhui Liu</strong>,&thinsp;
     <strong>Zhengwei Mai</strong>
 </div>
-*These authors contributed equally to this work.*  
-- Jiazhi Xie (Corresponding Author)
+
 
 ## News :newspaper:
 * **`Nov 21, 2024`:** First release.
@@ -29,8 +28,23 @@ To use this repository, follow the steps below to set up the environment:
    cd SANet
 
 2.	**Install the required dependencies:**
-It is recommended to create a virtual environment first, then install the dependencies.
-```bash
-# PyTorch==2.0.1 is used for faster training with compilation.
-conda create -n sanet python=3.10 -y && conda activate sanet
-pip install -r requirements.txt
+    It is recommended to create a virtual environment first, then install the dependencies.
+    ```bash
+    # PyTorch==2.0.1 is used for faster training with compilation.
+    conda create -n sanet python=3.10 -y && conda activate sanet
+    pip install -r requirements.txt
+
+3. **Download the datasets:**
+    After setting up the environment, you can download the training and test datasets from the provided links. Once downloaded, please unzip the datasets into the data folder under the root directory of the project. The folder structure      should look like this:
+       SANet/
+    ├── datasets/
+    │   ├── CAMO_TestingDataset/
+    │   └── CHAMELEON_TestingDataset/
+    │   └── COD10K_TestingDataset/
+    │   └── NC4K_TestingDataset/
+    │   └── COD10K_CAMO_CHAMELEON_TrainingDataset/
+    ├── requirements.txt
+    └── ... (other project files)
+       
+
+   
