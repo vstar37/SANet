@@ -51,7 +51,7 @@ To use this repository, follow the steps below to set up the environment:
 ```shell
 # Train & Test & Evaluation
 ./sub.sh RUN_NAME GPU_NUMBERS_FOR_TRAINING GPU_NUMBERS_FOR_TEST
-# Example: ./train_test.sh tmp-proj 0,1,2,3,4,5,6,7 0
+# Example: ./sub.sh  0,1,2,3,4,5,6,7 0
 
 # See train.sh / test.sh for only training / test-evaluation.
 # After the evaluation, run `gen_best_ep.py` to select the best ckpt from a specific metric (you choose it from Sm, wFm).
