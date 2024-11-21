@@ -56,6 +56,7 @@ To use this repository, follow the steps below to set up the environment:
 # See train.sh / test.sh for only training / test-evaluation.
 # After the evaluation, run `gen_best_ep.py` to select the best ckpt from a specific metric (you choose it from Sm, wFm).
 ```
+
 ## Result
 
 The segmentation results for the camouflaged object detection tasks can be accessed via the following Google Drive link: 
