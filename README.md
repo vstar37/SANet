@@ -1,14 +1,5 @@
 <h1 align="center">Incremental Structural Adaptation for Camouflaged Object Detection</h1>
 
-<div align='center'>
-    <strong>Qingzheng Wang</strong>,&thinsp;
-    <strong>Jiazhi Xie</strong><sup> *</sup>,&thinsp;
-    <strong>Ning Li</strong>,&thinsp;
-    <strong>Xingqin Wang</strong>,&thinsp;
-    <strong>Wenhui Liu</strong>,&thinsp;
-    <strong>Zhengwei Mai</strong>
-</div>
-
 
 ## News :newspaper:
 * **`Nov 21, 2024`:** First release.
