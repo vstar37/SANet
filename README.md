@@ -54,20 +54,7 @@ To use this repository, follow the steps below to set up the environment:
 # After the evaluation, run `gen_best_ep.py` to select the best ckpt from a specific metric (you choose it from Sm, wFm).
 ```
 
-## Result
 
-The segmentation results for the camouflaged object detection tasks can be accessed via the following Google Drive link: 
-
-[Download segmentation results](https://drive.google.com/drive/folders/1ehBdZcQWRVshFxR2u7-E1Uv-fwhkdOiE?usp=drive_link)
-
-This folder contains the output results from the SANet model, including segmentation masks and other related files for evaluation.
-
-## Contact
-
-For any inquiries or questions, please feel free to contact the corresponding author at:  
-Email: [amosvstar@gmail.com](mailto:amosvstar@gmail.com)
-
-We welcome any questions or feedback related to the project.
 
 
    
