@@ -4,10 +4,10 @@
 ## News :newspaper:
 * **`Nov 21, 2024`:** First release.
 
-## Overview
+## 💡 Overview
 This repository provides a PyTorch implementation of **SANet**, a **Structure-Adaptive Network** designed for **Camouflaged Object Detection** (COD). SANet addresses the challenges of detecting camouflaged objects by incorporating an innovative incremental structural adaptation mechanism, which enhances the model's ability to refine segmentation and improve localization in complex environments. The key feature of SANet is its ability to adaptively integrate high-resolution structural information, enabling fine-grained detection of camouflaged objects that closely resemble their backgrounds.
 
-## Usage
+## 💡 Usage
 
 ### Installation
 To use this repository, follow the steps below to set up the environment:
@@ -49,13 +49,13 @@ To use this repository, follow the steps below to set up the environment:
 ```
 
 
-### Results
+## 💡 Results
 
-#### 1. Model Weight
+### 1. Model Weight
 | Name | Backbone | Params | Weight |
 |  :---: |  :---:    | :---:   |  :---:   |
 | SANet-S |  Swin-S    |  85.31   |  [[Geogle Drive](https://drive.google.com/drive/folders/1ehBdZcQWRVshFxR2u7-E1Uv-fwhkdOiE?usp=drive_link)]|
-| SANet-L |  Swin-L    |  187.26  |  [[Geogle Drive](https://drive.google.com/drive/folders/1ehBdZcQWRVshFxR2u7-E1Uv-fwhkdOiE?usp=drive_link)|
+| SANet-L |  Swin-L    |  187.26  |  [[Geogle Drive](https://drive.google.com/drive/folders/1ehBdZcQWRVshFxR2u7-E1Uv-fwhkdOiE?usp=drive_link)]|
 
 - **Model Weights:** The model weights should be placed in the `ckpt/COD` directory.
 - **Backbone Weights:** The backbone weights should be placed in the `lib/weights/backbones` directory.
