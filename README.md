@@ -62,7 +62,7 @@ To use this repository, follow the steps below to set up the environment:
 After downloading the datasets, you will need to download the pretrained weights for the model and the backbone. These weights are required to initialize the model for training and inference.
 
 ### 2. Prediction Maps
-We offer the prediction maps of **SANet-S** [[baidu](https://pan.baidu.com/s/13MKOObYH6afYzF7P-2vjeQ),PIN:gsvf] and **SANet-L** [[Geogle Drive](https://drive.google.com/drive/folders/1ehBdZcQWRVshFxR2u7-E1Uv-fwhkdOiE?usp=drive_link)] at this time.
+We offer the prediction maps of **SANet-S** [[baidu](https://pan.baidu.com/s/13MKOObYH6afYzF7P-2vjeQ),PIN:gsvf] and **SANet-L** [[Geogle Drive](https://drive.google.com/file/d/17q1poRj1FagWDoVSSX1712Wl9P32xRHO/view?usp=share_link)] at this time.
 
 
 
