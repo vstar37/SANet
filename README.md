@@ -37,10 +37,6 @@ To use this repository, follow the steps below to set up the environment:
    │   └── COD10K_CAMO_CHAMELEON_TrainingDataset/
    ├── requirements.txt
    └── … (other project files)
-4. **Download the weights:**
-   [Download weights](https://drive.google.com/drive/folders/1ehBdZcQWRVshFxR2u7-E1Uv-fwhkdOiE?usp=drive_link)
-
-
 
 ### Run
 ```shell
@@ -51,6 +47,7 @@ To use this repository, follow the steps below to set up the environment:
 # See train.sh / test.sh for only training / test-evaluation.
 # After the evaluation, run `gen_best_ep.py` to select the best ckpt from a specific metric (you choose it from Sm, wFm).
 ```
+
 
 ### Results
 
