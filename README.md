@@ -39,10 +39,8 @@ To use this repository, follow the steps below to set up the environment:
    └── … (other project files)
 4. **Download the weights:**
    [Download weights](https://drive.google.com/drive/folders/1ehBdZcQWRVshFxR2u7-E1Uv-fwhkdOiE?usp=drive_link)
-   After downloading the datasets, you will need to download the pretrained weights for the model and the backbone. These weights are required to initialize the model for training and inference.
 
-   - **Model Weights:** The model weights should be placed in the `ckpt/COD` directory.
-   - **Backbone Weights:** The backbone weights should be placed in the `lib/weights/backbones` directory.
+
 
 ### Run
 ```shell
@@ -53,6 +51,21 @@ To use this repository, follow the steps below to set up the environment:
 # See train.sh / test.sh for only training / test-evaluation.
 # After the evaluation, run `gen_best_ep.py` to select the best ckpt from a specific metric (you choose it from Sm, wFm).
 ```
+
+### Results
+
+#### 1. Model Weight
+| Name | Backbone | Params | Weight |
+|  :---: |  :---:    | :---:   |  :---:   |
+| SANet-S |  Swin-S    |  85.31   |  [[Geogle Drive](https://drive.google.com/drive/folders/1ehBdZcQWRVshFxR2u7-E1Uv-fwhkdOiE?usp=drive_link)]|
+| SANet-L |  Swin-L    |  187.26  |  [[Geogle Drive](https://drive.google.com/drive/folders/1ehBdZcQWRVshFxR2u7-E1Uv-fwhkdOiE?usp=drive_link)|
+
+- **Model Weights:** The model weights should be placed in the `ckpt/COD` directory.
+- **Backbone Weights:** The backbone weights should be placed in the `lib/weights/backbones` directory.
+After downloading the datasets, you will need to download the pretrained weights for the model and the backbone. These weights are required to initialize the model for training and inference.
+
+### 2. Prediction Maps
+We offer the prediction maps of **SANet-S** [[baidu](https://pan.baidu.com/s/13MKOObYH6afYzF7P-2vjeQ),PIN:gsvf] and **SANet-L** [[Geogle Drive](https://drive.google.com/drive/folders/1ehBdZcQWRVshFxR2u7-E1Uv-fwhkdOiE?usp=drive_link)] at this time.
 
 
 
