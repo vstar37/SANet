@@ -54,8 +54,8 @@ To use this repository, follow the steps below to set up the environment:
 ### 1. Model Weight
 | Name | Backbone | Params | Weight |
 |  :---: |  :---:    | :---:   |  :---:   |
-| SANet-S |  Swin-S    |  85.31   |  [[Geogle Drive](https://drive.google.com/drive/folders/1ehBdZcQWRVshFxR2u7-E1Uv-fwhkdOiE?usp=drive_link)]|
-| SANet-L |  Swin-L    |  187.26  |  [[Geogle Drive](https://drive.google.com/drive/folders/1ehBdZcQWRVshFxR2u7-E1Uv-fwhkdOiE?usp=drive_link)]|
+| SANet-S |  Swin-S    |  81.362   |  [[Geogle Drive](https://drive.google.com/drive/folders/1ehBdZcQWRVshFxR2u7-E1Uv-fwhkdOiE?usp=drive_link)]|
+| SANet-L |  Swin-L    |  92.801  |  [[Geogle Drive](https://drive.google.com/drive/folders/1ehBdZcQWRVshFxR2u7-E1Uv-fwhkdOiE?usp=drive_link)]|
 
 - **Model Weights:** The model weights should be placed in the `ckpt/COD` directory.
 - **Backbone Weights:** The backbone weights should be placed in the `lib/weights/backbones` directory.
