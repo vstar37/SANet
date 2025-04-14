@@ -64,8 +64,8 @@ After downloading the datasets, you will need to download the pretrained weights
 ### 2. Prediction Maps
 We offer the prediction maps of **SANet-S** [[baidu](https://pan.baidu.com/s/13MKOObYH6afYzF7P-2vjeQ),PIN:gsvf] and **SANet-L** [[Geogle Drive](https://drive.google.com/file/d/17q1poRj1FagWDoVSSX1712Wl9P32xRHO/view?usp=share_link)] at this time.
 
-### 3. Polyp Segmentation Prediction Maps
-We offer the prediction maps of **SANet-L** [[Geogle Drive](https://drive.google.com/file/d/1YGrEHNHIYh9Y9iSXR-8CB3fq5-OjYQbF/view?usp=share_link)] at this time.
+### 3. Polyp and SOD Prediction Maps
+We offer the prediction maps of **SANet-L** [[Polyp](https://drive.google.com/file/d/1YGrEHNHIYh9Y9iSXR-8CB3fq5-OjYQbF/view?usp=share_link)], [[SOD](https://drive.google.com/file/d/1Nl2yjuWZb-cF5vWX8rREaeQ7RyvasWgk/view?usp=share_link)] at this time.
 
 
 
