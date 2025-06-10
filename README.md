@@ -1,11 +1,24 @@
 <h1 align="center">Incremental Structural Adaptation for Camouflaged Object Detection</h1>
 
-
-## News :newspaper:
+## 🗞️ News
 * **`Nov 21, 2024`:** First release.
 
 ## 💡 Overview
-This repository provides a PyTorch implementation of **SANet**, a **Structure-Adaptive Network** designed for **Camouflaged Object Detection** (COD). SANet addresses the challenges of detecting camouflaged objects by incorporating an innovative incremental structural adaptation mechanism, which enhances the model's ability to refine segmentation and improve localization in complex environments. The key feature of SANet is its ability to adaptively integrate high-resolution structural information, enabling fine-grained detection of camouflaged objects that closely resemble their backgrounds.
+This repository provides a PyTorch implementation of **SANet**, a **Structure-Adaptive Network** designed for **Camouflaged Object Detection** (COD).  
+SANet addresses the challenges of detecting camouflaged objects by incorporating an innovative incremental structural adaptation mechanism, which enhances the model's ability to refine segmentation and improve localization in complex environments.  
+The key feature of SANet is its ability to adaptively integrate high-resolution structural information, enabling fine-grained detection of camouflaged objects that closely resemble their backgrounds.
+
+---
+
+## 💻 Environment
+
+- **OS:** Ubuntu 20.04  
+- **CUDA:** 11.8  
+- **Python:** 3.10  
+- **PyTorch:** 2.0.1 (tested)  
+- Other required packages: see [`requirements.txt`](./requirements.txt)
+
+---
 
 ## 💡 Usage
 
