@@ -32,7 +32,7 @@ class BasicDecBlk_lite(nn.Module):
         super(BasicDecBlk_lite, self).__init__()
         inter_channels = 64
 
-        # 使用深度可分离卷积代替标准卷积
+        # Use depthwise separable convolution instead of standard convolution
         self.depthwise_conv_in = nn.Conv2d(in_channels, in_channels, kernel_size=3, stride=1, padding=1,
                                            groups=in_channels)
         self.pointwise_conv_in = nn.Conv2d(in_channels, inter_channels, kernel_size=1, stride=1)
@@ -45,13 +45,13 @@ class BasicDecBlk_lite(nn.Module):
         self.bn_out = nn.BatchNorm2d(out_channels)
 
     def forward(self, x):
-        # 输入部分：深度卷积 + 逐点卷积 + BN + ReLU
+        # Input: Depthwise convolution + pointwise convolution + BN + ReLU
         x = self.depthwise_conv_in(x)
         x = self.pointwise_conv_in(x)
         x = self.bn_in(x)
         x = self.relu_in(x)
 
-        # 输出部分：深度卷积 + 逐点卷积 + BN
+        # Output: Depthwise convolution + pointwise convolution + BN
         x = self.depthwise_conv_out(x)
         x = self.pointwise_conv_out(x)
         x = self.bn_out(x)
@@ -142,7 +142,6 @@ class RF(nn.Module):
         x_cat = self.conv_cat(torch.cat((x0, x1, x2, x3), dim=1))
 
         x = self.relu(x_cat + self.conv_res(x))
-        # x = F.interpolate(x, size=config.dec_traget_size[self.index], mode='bilinear', align_corners=False)
         return x
 
 
@@ -173,45 +172,45 @@ class LocalConv2d(nn.Module):
         self.out_channels = out_channels
         self.in_channels = in_channels
 
-        # 初始化卷积层
+        # Initialize convolution layer
         self.conv = nn.Conv2d(in_channels, out_channels, kernel_size=kernel_size, stride=stride, padding=padding,
                               bias=False)
-        # 批归一化
+        # Batch normalization
         self.bn = nn.BatchNorm2d(out_channels)
-        # 激活函数
+        # Activation function
         self.relu = nn.ReLU(inplace=True)
         self.num_windows_h = int(math.sqrt(num_windows))
         self.num_windows_w = int(math.ceil(num_windows / self.num_windows_h))
 
     def forward(self, x):
         b, c, h, w = x.size()
-        # 设置patch的窗口数量为4x4，因此每个窗口的尺寸为h//4 * w//4
-        window_h, window_w = h // self.num_windows_h, w // self.num_windows_w  # 计算每个窗口的尺寸
+        # Set the number of patch windows to 4x4, so each window size is h//4 * w//4
+        window_h, window_w = h // self.num_windows_h, w // self.num_windows_w  # Compute the size of each window
 
-        # 确保输入尺寸能被窗口数量整除
+        # Ensure input dimensions are divisible by the number of windows
         assert h % self.num_windows_h == 0 and w % self.num_windows_w == 0, "Input dimensions must be divisible by the number of windows."
 
-        # 划分窗口
+        # Divide into windows
         patches = x.unfold(2, window_h, window_h).unfold(3, window_w,
-                                                         window_w)  # 形状: (b, c, num_patches_h, num_patches_w, window_h, window_w)
+                                                         window_w)  # Shape: (b, c, num_patches_h, num_patches_w, window_h, window_w)
 
-        # 调整形状，使其适合卷积操作
+        # Reshape for convolution
         patches = patches.contiguous().view(b * self.num_windows_h * self.num_windows_w, c, window_h, window_w)
 
-        # 对每个窗口应用卷积
-        conv_patches = self.conv(patches)  # 形状: (b * num_patches_h * num_patches_w, out_channels, window_h, window_w)
+        # Apply convolution to each window
+        conv_patches = self.conv(patches)  # Shape: (b * num_patches_h * num_patches_w, out_channels, window_h, window_w)
 
-        # 进行批归一化和ReLU激活
+        # Apply batch normalization and ReLU activation
         conv_patches = self.bn(conv_patches)
         conv_patches = self.relu(conv_patches)
 
-        # 恢复形状
+        # Restore shape
         conv_patches = conv_patches.view(b, self.num_windows_h, self.num_windows_w, self.out_channels, window_h,
                                          window_w)
 
-        # 拼接卷积结果
+        # Concatenate convolution results
         conv_patches = conv_patches.permute(0, 3, 1, 4, 2,
-                                            5).contiguous()  # 形状: (b, out_channels, num_patches_h, window_h, num_patches_w, window_w)
+                                            5).contiguous()  # Shape: (b, out_channels, num_patches_h, window_h, num_patches_w, window_w)
         conv_patches = conv_patches.view(b, self.out_channels, h, w)
 
         return conv_patches

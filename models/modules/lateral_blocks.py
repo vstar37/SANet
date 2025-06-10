@@ -18,7 +18,7 @@ class GussianLatBlk(nn.Module):
     def forward(self, x):
         dog = difference_of_gaussians(x = x, kernel_size=3, sigma1=3.0 * (0.9 ** self.index), sigma2=3.0 * (0.9**(self.index + 1)), index=self.index)
         dog = self.conv(dog)
-        dog = 2 * dog.sigmoid()  #这里应该用normal 而非 sigmoid
+        dog = 2 * dog.sigmoid()
         return dog
 
 def difference_of_gaussians(x, kernel_size, sigma1, sigma2, index):

@@ -84,7 +84,6 @@ def prepare_dataloader(dataset: torch.utils.data.Dataset, batch_size: int, to_be
 
 
 def init_data_loaders(to_be_distributed):
-    # Prepare dataset, 返回一个dataloader 对象
     train_loader = prepare_dataloader(
         MyData(datasets=config.training_set, image_size=config.train_size, is_train=True),
         config.batch_size, to_be_distributed=to_be_distributed, is_train=True
@@ -229,7 +228,7 @@ class Trainer:
                 remaining_time = elapsed_time * (remaining_iterations / 20)
                 estimated_end_time = current_time + remaining_time
                 estimated_end_time_str = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(estimated_end_time))
-                subprocess.run(['python', 'train_start_notice.py', str(self.start_time), estimated_end_time_str])
+                # subprocess.run(['python', 'train_start_notice.py', str(self.start_time), estimated_end_time_str])
 
             # Logger
             if batch_idx % 20 == 0:
@@ -340,7 +339,6 @@ def main():
             train_loss = trainer.train_epoch(epoch)
             # Save checkpoint
             # DDP
-            # 没保存最后一个epoch
             if epoch >= config.save_last and epoch % config.save_step == 0:
                 torch.save(
                     trainer.model.module.state_dict() if to_be_distributed else trainer.model.state_dict(),

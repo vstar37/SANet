@@ -115,7 +115,6 @@ class Decoder(nn.Module):
         AttentionBlock = eval(self.config.att_blk)
         HeadBlock = eval(self.config.hea_blk)
 
-        # self.lateral_block3 = LateralBlock(channels[3],channels[3],3)
         self.lateral_block2 = LateralBlock(channels[2], 2)
         self.lateral_block1 = LateralBlock(channels[1], 1)
 
@@ -128,7 +127,6 @@ class Decoder(nn.Module):
             self.edge_shape2_1 = nn.Conv2d(channels[2], channels[1],1)
 
         self.mix_block1 = ScMixBlk(channels)
-        # self.pd_decoder_se = PDC_SE(channels)
 
         if self.config.att_blk == 'MixResAttention':
             self.attention_block2 = AttentionBlock(channels[1], channels[2])
@@ -147,12 +145,11 @@ class Decoder(nn.Module):
         x, x1, x2, x3, x4 = features
 
 
-        # --- 获取 edge 权重 ----
+        # --- Get edge weights ---
         e1 = self.lateral_block1(x1)
         e2 = self.lateral_block2(x2)
-        # e3 = self.lateral_block3(x3)
 
-        # 结构权重降噪
+        # Structure weight denoising
         if self.config.lat_blk == 'GussianLatBlk' and self.config.lat_blk_filter:
             threshold = 1.0
             e1 = torch.where(e1 >= threshold, e1,
@@ -160,7 +157,7 @@ class Decoder(nn.Module):
             e2 = torch.where(e2 >= threshold, e2,
                              torch.tensor(1.0, dtype=torch.float32))
 
-        # ---- get pred_m ----
+        # ---- Get pred_m ----
         if self.config.lat_blk == 'GussianLatBlk':
             x1 = x1 * e1
             x2 = x2 * e2
@@ -181,7 +178,7 @@ class Decoder(nn.Module):
             x1 = self.attention_block1(x1)
             x4 = self.attention_block4(x4)
 
-        # 测试，先 attention 再 decode
+        # Apply attention before decoding
         x1 = self.decoder_block1(x1)
         x2 = self.decoder_block2(x2)
         x3 = self.decoder_block3(x3)
@@ -199,16 +196,12 @@ class Decoder(nn.Module):
 
 
 def main():
-    # 创建一个 SANet 实例
+    # Debug code: run a forward pass once
     model = SANet()
-
-    # 生成一个随机输入 tensor，假设输入图片的大小为 (batch_size, channels, height, width)
-    input_tensor = torch.randn(1, 3, 512, 512)  # batch_size=1, channels=3, height=256, width=256
-
-    # 运行前向传播
+    input_tensor = torch.randn(1, 3, 512, 512)  # batch_size=1, channels=3, height=512, width=512
+    # Run forward pass
     output = model(input_tensor)
 
-    # 打印每个 tensor 的形状
     print("Input tensor shape:", input_tensor.shape)
 
     x1, x2, x3, x4 = model.forward_preprocess(input_tensor)
@@ -217,7 +210,6 @@ def main():
     print("x3 shape:", x3.shape)
     print("x4 shape:", x4.shape)
 
-    # 检查输出形状
     if isinstance(output, tuple):
         for i, out in enumerate(output):
             print(f"Output {i} shape:", out.shape)

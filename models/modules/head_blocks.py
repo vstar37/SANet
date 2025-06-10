@@ -21,17 +21,13 @@ class OutHeaBlk(nn.Module):
         self.bn_out = nn.BatchNorm2d(out_channels)
 
     def forward(self, x):
-        # print(self.index)
-        # print(config.dec_traget_size[self.index])
+
         x = self.conv_in(x)
         x = self.bn_in(x)
         x = self.relu_in(x)
 
         x = self.conv_out(x)
         x = self.bn_out(x)
-
-        # 逐渐放大尺寸，对齐输入尺寸
-        # x = F.interpolate(x, size=244, mode='bilinear', align_corners=False)
         return x
 
 
@@ -141,7 +137,7 @@ class ResDetHeaBlk_v1(nn.Module):
         return torch.cat(batched_results, 0)
 
 
-# v2, 做两次cat (是否做权重共享？不应该做权重共享，因为我这里之所以分两个阶段，就是要区分它们。做共享了不是白区分)
+# v2
 class ResDetHeaBlk_v2(nn.Module):
     def __init__(self, in_channels):
         super(ResDetHeaBlk_v2, self).__init__()
@@ -152,7 +148,6 @@ class ResDetHeaBlk_v2(nn.Module):
         self.upsample = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
         self.upsample4 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=True)
         self.conv_upsample1 = BasicConv2d(in_channels, in_channels, 3, padding=1)
-        # self.conv_upsample2 = BasicConv2d(in_channels, in_channels, 3, padding=1, dilation=2)
         self.conv_pred_m1 = nn.Conv2d(in_channels, 1, 1)
         self.conv_pred_m2 = nn.Conv2d(in_channels, 1, 1)
         self.conv_concat1 = BasicConv2d(in_channels + 64 * 3 + channels[1] + channels[1]//2, in_channels + 64 * 3 + channels[1] + channels[1]//2, 3, padding=1)
@@ -179,40 +174,11 @@ class ResDetHeaBlk_v2(nn.Module):
             coarse_pred_map = self.conv_pred_m1(coarse_m)
             mid_pred = coarse_pred_map
             coarse_pred_map = coarse_pred_map.sigmoid()
-            '''
-            visualization
-            
-            visual_coarse_m = coarse_pred_map
-            res = nn.functional.interpolate(
-                visual_coarse_m,
-                size=(589, 617),
-                mode='bilinear',
-                align_corners=True
-            )
-            res = (res * 255)
-            save_tensor_img(res, '/home/amos/PycharmProjects/COD_TEST/visualzation/coarse_m1.jpg')
-            
-            visualization end       
-            '''
         else:
             coarse_pred_map = self.conv_pred_m2(coarse_m)
             mid_pred = coarse_pred_map
             coarse_pred_map = coarse_pred_map.sigmoid()
-            '''
-            visualization
-            
-            visual_coarse_m = coarse_pred_map
-            res = nn.functional.interpolate(
-                visual_coarse_m,
-                size=(589, 617),
-                mode='bilinear',
-                align_corners=True
-            )
-            res = (res * 255)
-            save_tensor_img(res, '/home/amos/PycharmProjects/COD_TEST/visualzation/coarse_m2.jpg')
-            
-            visualization end       
-            '''
+
         batch_size, channels_raw, height_raw, width_raw = raw_x.size()
         coarse_patches_size = coarse_pred_map.size(-1) // 8
         raw_x_patch_size = height_raw // 8
@@ -240,41 +206,7 @@ class ResDetHeaBlk_v2(nn.Module):
                 high_res_patches_batch = torch.zeros(1, 64, coarse_m.size(-1), coarse_m.size(-1),
                                                      device=coarse_m.device)
             foreground_patches.append(high_res_patches_batch)
-            '''
-                    #Visualization of foreground patches
-            # Save the first foreground patch of the batch for visualization
-            if foreground_patches_batch:
-                for j, patch in enumerate(foreground_patches_batch):
-                    visual_patch = patch[0, :, :, :].cpu().detach()
-                    visual_patch = (visual_patch - visual_patch.min()) / (
-                                visual_patch.max() - visual_patch.min())  # Normalize
-                    save_tensor_img2(visual_patch,
-                                    f'/home/amos/PycharmProjects/COD_TEST/visualzation/output/foreground_patch_b{b}_j{j}.jpg')
 
-                    
-                    #Reconstructing image from patches
-
-            reconstructed_image = torch.zeros((channels_raw, height_raw, width_raw), device=coarse_m.device)
-            patch_count = torch.zeros((1, height_raw, width_raw), device=coarse_m.device)
-
-            patch_size = raw_x_patch_size
-            num_patches = int(height_raw // patch_size)
-
-            for i in range(num_patches):
-                for j in range(num_patches):
-                    if coarse_patches[b, :, i * num_patches + j, :, :].max() > 0.5:
-                        patch = raw_patches[b, :, i * num_patches + j, :, :].squeeze()
-                        reconstructed_image[:, i * patch_size:(i + 1) * patch_size,
-                        j * patch_size:(j + 1) * patch_size] += patch
-                        patch_count[:, i * patch_size:(i + 1) * patch_size, j * patch_size:(j + 1) * patch_size] += 1
-
-            patch_count[patch_count == 0] = 1
-            reconstructed_image /= patch_count
-
-            # Save the reconstructed image
-            save_tensor_img2(reconstructed_image,
-                            f'/home/amos/PycharmProjects/COD_TEST/visualzation/reconstructed_image_b{b}.jpg')
-        '''
         return self.batch_concat(coarse_m, foreground_patches), mid_pred
 
     def batch_concat(self, coarse_m, high_res_patches_lists):
@@ -336,53 +268,3 @@ class BasicConv2d(nn.Module):
 
 
 
-
-'''
-if __name__ == "__main__":
-    # coarse_m, x2_2, x3_1, raw_x
-    coarse_m = torch.randn(4, 576, 64, 64)
-    x2_2 = torch.randn(4, 576, 64, 64)
-    x3_1 = torch.randn(4, 288, 64, 64)
-    raw_x = torch.randn(4, 3, 512, 512)
-
-
-    net = ResDetHeaBlk_v2()
-    logits = net(coarse_m, x2_2, x3_1, raw_x)
-
-'''
-
-'''
-    整合你之前提供的信息，ResDetHeaBlk可以说是对高分辨率原始图像取相应块之后做下采样，拼接到特征图上。但是如果我不想折损分辨率信息，不想在这里对原始高分辨率patches做下采样。我想修改get_patches函数，让其返回的patches分辨率等于输入的coarse_m的分辨率，实现方式如下：
-    
-    作用：获取高分辨率patch，以进行concat
-    实现方式：
-    先备份coarse_map，然后对coarse_map计算 sigmoid，并乘以255，形成一个coarse_pred_map.
-    然后对粗糙预测图 coarse_pred_map[64,64] 与 原始输入图片raw_x[512,512] 分别做等比例分割
-        例如：第一次concat时，将 coarse_pred_map 分割成 8*8个patch ，每个patch的分辨率都是8*8；将raw_x 分割成8*8个patch，每个patch的分辨率都是64*64
-            第二次concat时,由于 coarse_pred_map 经过 upsample 和 conv_upsample1 已经变成了 [128,128],因此做8*8patch 之后每个patch的分辨率是16*16，将raw_x 分割成8*8个patch，每个patch的分辨率都是64*64。
-            第三次concat时,由于 coarse_pred_map 经过 upsample 和 conv_upsample2 已经变成了 [256,256],因此做8*8patch 之后每个patch的分辨率是32*32，将raw_x 分割成8*8个patch，每个patch的分辨率都是64*64。
-    然后对于每一次 concat 寻找coarse_pred_map 的 patches中所有的包含前景信息patches，并根据等比例分割选取raw_x中相应位置的patches
-    此时还可能面临raw_x的patches尺寸==coarse_pred_map的尺寸的情况，如果这种情况发生，我们不需要进行额外处理。因为它可以直接在forward中进行concat
-    此时可能面临raw_x的patches尺寸<coarse_pred_map的尺寸的情况，如果这种情况发生，一般是因为输入的coarse_map已经经过若干次上采样处理，变得很大了。我们需要将raw_x patches进行上采样，使其分辨率等于coarse_pred_map的尺寸。
-    在我们的设计上raw_x的patches尺寸不会发生>coarse_pred_map尺寸的情况，如果发生请抛出报错。
-
-        例如：假如第一次concat时，coarse_pred_map选中了三个包含前景信息的patches，相应的我们找到了raw_x上三个相对位置的patches。此时raw_x的三个patches的分辨率是64*64，等于coarse_pred_map的尺寸，我们就不需要进行进一步的patch。
-            然而第一次concat时，假如coarse_pred_map又选中了三个包含前景信息的patches，相应的我们找到了raw_x上三个相对位置的patches。此时raw_x的三个patches的分辨率是64*64，然而coarse_pred_map经过上采样已经变成128*128，大于raw_x的三个patches的分辨率
-            此时我们需要raw_x的三个patches做上采样，使其分辨率等于coarse_pred_map的分辨率。
-
-    最后将这些选中的raw_x中的patches做concat，作为get_patches的返回值。
-
-'''
-
-'''
-
-对于这俩特征图，patch块数确实都是64块。大图和小图做的都是八行八列分块。
-块数量一致是因为要根据低分辨率预测图的前景信息来定位，其前景块号。再利用低分辨率图的前景块号，以及二者是等比分割的关系，去512大图片 raw_x 上来选取相同块号的patch。
-这些patch就是模型粗糙预测的存在伪装物体的块号，并且具有高分辨率信息。
-然后是拼接阶段，这一步骤不需要二者patch的尺寸一致，而需要大图的patch尺寸等于小图的整个图尺寸。
-将大图的带有可疑前景信息的高分辨率patch直接沿着通道维度 cat 到小图整张图上。
-在这个例子中，大图分完八行八列，每个patch的分辨率固定是64*64。
-小图的增长图分辨率，则由于分三次二倍上采样所以在每次cat之前分辨率是 64，128，256。
-所以第一次cat时二者都是64不需要动
-后两次则是要将大图的patch二倍上采样，才能cat在小图的通道维度上。
-'''

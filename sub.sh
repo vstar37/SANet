@@ -8,11 +8,6 @@ if [ "$resume" = "False" ]; then
     rm -rf e_logs ckpt e_results e_preds
 fi
 
-# 启动 Telegram 机器人监听
-nohup python awake_lisa.py > bot/lisa_working.log 2>&1 &
-echo "Lisa awake."
-
-
 method=$(python -c "from config import Config; print(Config().task)")
 devices=$(python -c "from config import Config; print(Config().device)")
 
@@ -32,4 +27,4 @@ hostname
 devices_test=${3:-0}
 bash test.sh ${devices_test}
 
-python train_finish_notice.py
+#python train_finish_notice.py
