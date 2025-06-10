@@ -15,7 +15,7 @@ The key feature of SANet is its ability to adaptively integrate high-resolution 
 - **OS:** Ubuntu 20.04  
 - **CUDA:** 11.8  
 - **Python:** 3.10  
-- **PyTorch:** 2.0.1 (tested)  
+- **PyTorch:** 2.4.0
 - Other required packages: see [`requirements.txt`](./requirements.txt)
 
 ---
@@ -33,7 +33,7 @@ To use this repository, follow the steps below to set up the environment:
 2.	**Install the required dependencies:**
     It is recommended to create a virtual environment first, then install the dependencies.
     ```bash
-    # PyTorch==2.0.1 is used for faster training with compilation.
+    # PyTorch==2.4.0 is used for faster training with compilation.
     conda create -n sanet python=3.10 -y && conda activate sanet
     pip install -r requirements.txt
 
