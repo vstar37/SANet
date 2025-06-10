@@ -8,6 +8,10 @@ This repository provides a PyTorch implementation of **SANet**, a **Structure-Ad
 SANet addresses the challenges of detecting camouflaged objects by incorporating an innovative incremental structural adaptation mechanism, which enhances the model's ability to refine segmentation and improve localization in complex environments.  
 The key feature of SANet is its ability to adaptively integrate high-resolution structural information, enabling fine-grained detection of camouflaged objects that closely resemble their backgrounds.
 
+- Baseline:
+
+  ![](./figs/baseline.jpg)
+
 ---
 
 ## 💻 Environment
@@ -64,6 +68,10 @@ To use this repository, follow the steps below to set up the environment:
 
 ## 💡 Results
 
+- SANet Result:
+
+  ![](./figs/result.jpg)
+
 ### 1. Model Weight
 | Name | Backbone | Params | Weight |
 |  :---: |  :---:    | :---:   |  :---:   |
@@ -79,7 +87,6 @@ We offer the prediction maps of **SANet-S** [[baidu](https://pan.baidu.com/s/13M
 
 ### 3. Polyp and SOD Prediction Maps
 We offer the prediction maps of **SANet-L** [[Polyp](https://drive.google.com/file/d/1YGrEHNHIYh9Y9iSXR-8CB3fq5-OjYQbF/view?usp=share_link)], [[SOD](https://drive.google.com/file/d/1Nl2yjuWZb-cF5vWX8rREaeQ7RyvasWgk/view?usp=share_link)] at this time.
-
 
 
 
@@ -105,3 +112,5 @@ If you find our work useful in your research, please consider citing our paper:
   abstract = {Camouflaged Object Detection (COD) is a challenging task due to the similarity between camouflaged objects and their backgrounds. Recent approaches predominantly utilize structural cues but often struggle with misinterpretations and noise, particularly for small objects. To address these issues, we propose the Structure-Adaptive Network (SANet), which incrementally supplements structural information from points to surfaces. Our method includes the Key Point Structural Information Prompting Module (KSIP) to enhance point-level structural information, Mixed-Resolution Attention (MRA) to incorporate high-resolution details, and the Structural Adaptation Patch (SAP) to selectively integrate high-resolution patches based on the shape of the camouflaged object. Experimental results on three widely used COD datasets demonstrate that SANet significantly outperforms state-of-the-art methods, achieving more accurate localization and finer edge segmentation, while minimizing background noise. Our code is available at https://github.com/vstar37/SANet/.}
 }
 ```
+
+
