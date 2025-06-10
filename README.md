@@ -10,7 +10,7 @@ The key feature of SANet is its ability to adaptively integrate high-resolution 
 
 - Baseline:
 
-  ![](./figs/baseline.jpg)
+  <img src="./figs/baseline.jpg" alt="Baseline" width="80%">
 
 ---
 
@@ -70,7 +70,7 @@ To use this repository, follow the steps below to set up the environment:
 
 - SANet Result:
 
-  ![](./figs/result.jpg)
+  <img src="./figs/result.jpg" alt="SANet Result" width="60%">
 
 ### 1. Model Weight
 | Name | Backbone | Params | Weight |
