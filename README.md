@@ -84,3 +84,24 @@ We offer the prediction maps of **SANet-L** [[Polyp](https://drive.google.com/fi
 
 
    
+   
+
+## 📄 Citation
+
+If you find our work useful in your research, please consider citing our paper:
+
+```bibtex
+@article{WANG2025105565,
+  title = {Incremental structural adaptation for camouflaged object detection},
+  journal = {Image and Vision Computing},
+  volume = {159},
+  pages = {105565},
+  year = {2025},
+  issn = {0262-8856},
+  doi = {https://doi.org/10.1016/j.imavis.2025.105565},
+  url = {https://www.sciencedirect.com/science/article/pii/S0262885625001532},
+  author = {Qingzheng Wang and Jiazhi Xie and Ning Li and Xingqin Wang and Wenhui Liu and Zengwei Mai},
+  keywords = {Camouflaged object detection, Image segmentation, Computer vision, Structural information},
+  abstract = {Camouflaged Object Detection (COD) is a challenging task due to the similarity between camouflaged objects and their backgrounds. Recent approaches predominantly utilize structural cues but often struggle with misinterpretations and noise, particularly for small objects. To address these issues, we propose the Structure-Adaptive Network (SANet), which incrementally supplements structural information from points to surfaces. Our method includes the Key Point Structural Information Prompting Module (KSIP) to enhance point-level structural information, Mixed-Resolution Attention (MRA) to incorporate high-resolution details, and the Structural Adaptation Patch (SAP) to selectively integrate high-resolution patches based on the shape of the camouflaged object. Experimental results on three widely used COD datasets demonstrate that SANet significantly outperforms state-of-the-art methods, achieving more accurate localization and finer edge segmentation, while minimizing background noise. Our code is available at https://github.com/vstar37/SANet/.}
+}
+```
